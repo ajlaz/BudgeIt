@@ -7,7 +7,7 @@ import (
 )
 
 func GetData(id string, db *sqlx.DB) ([]models.Transaction, error) {
-	rows, err := db.Query(`SELECT * FROM transactions WHERE id = $1`, id)
+	rows, err := db.Query(`SELECT * FROM transactions WHERE user_id = $1`, id)
 	if err != nil {
 		return nil, err
 	}
