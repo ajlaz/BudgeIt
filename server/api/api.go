@@ -11,8 +11,11 @@ type API struct {
 }
 
 func New(db *sqlx.DB) *API {
-	return &API{
+	a := &API{
 		db:     db,
 		Engine: gin.Default(),
 	}
+
+	a.RegisterRoutes()
+	return a
 }
