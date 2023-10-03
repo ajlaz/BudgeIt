@@ -1,8 +1,11 @@
 package postgres
 
 import (
+	"github.com/ajlaz/BudgeIt/models"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
+	pg "gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 func Connect() (*sqlx.DB, error) {
@@ -14,17 +17,10 @@ func Connect() (*sqlx.DB, error) {
 }
 
 func Init(db *sqlx.DB) {
-	db.Exec(`CREATE TABLE IF NOT EXISTS users (
-		id SERIAL PRIMARY KEY,
-		username TEXT UNIQUE NOT NULL,
-		password TEXT NOT NULL
-	)`)
-
-	db.Exec(`CREATE TABLE IF NOT EXISTS transactions (
-		id SERIAL PRIMARY KEY,
-		user_id INTEGER NOT NULL,
-		amount INTEGER NOT NULL,
-		type TEXT NOT NULL,
-		date TEXT NOT NULL
-	)`)
+	internal := db.DB
+	gormdb, err := gorm.Open(pg.New(pg.Config{Conn: internal}), &gorm.Config{})
+	if err != nil {
+		panic(err)
+	}
+	gormdb.AutoMigrate(&models.User{}, &models.Transaction{})
 }

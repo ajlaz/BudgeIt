@@ -1,10 +1,13 @@
 import React, {useState} from 'react'
 import axios from 'axios'
 
-export default function Form() {
+
+export default function Form(props) {
     const [amount, setAmount] = useState(0)
     const [type, setType] = useState("")
     const [date, setDate] = useState("")
+    const [error, setError] = useState(false)
+
 
 
     const handleAmount = () => {
@@ -29,11 +32,20 @@ export default function Form() {
         return (e) => {
             e.preventDefault()
             const data = {
-                user_id: 1,
+                user_id: parseInt(props.userId, 10),
                 amount: parseInt(amount, 10),
                 type: type,
                 date: date
             }
+
+            if (data.amount === 0 || data.type === "" || data.date === "") {
+                setError(true)
+                return
+            }
+            setError(false)
+
+
+
 
             const res = axios({
                 method: 'post',
@@ -42,16 +54,18 @@ export default function Form() {
                 data: data
             })
             res.then((res) => {
-                console.log(res)
+                props.setTransactions([...props.transactions, res.data])
+
             })
             res.catch(() => {
-                console.log("AAAAHHH")
+                console.log("error")
             })
 
 
 
         }
     }
+    window.history.pushState({}, null, '/')
 
   return (
     <div class="transaction-form">
@@ -59,6 +73,10 @@ export default function Form() {
         <input name="type" type="text" onChange={handleType()} placeholder="Type" />
         <input name="date" type="text"  onChange={handleDate()} placeholder="Date (mm/dd/yyyy)" />
         <button onClick={handleSubmit()}>Submit</button>
+        <div class="props">{}</div>
+        {
+            error ? <p>Missing Fields</p> : <></>
+        }
     </div>
   )
 }
