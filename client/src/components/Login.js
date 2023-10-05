@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import axios from 'axios'
 
 export default function Login(props) {
-    const [userId, setUserId] = useState(0)
     function login() {
         return () => {
           axios.post('http://localhost:8080/login', {

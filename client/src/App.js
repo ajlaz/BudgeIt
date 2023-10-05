@@ -1,21 +1,23 @@
-import { Button } from '@material-ui/core';
 import './App.css';
-import Form from './components/Form';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
-import axios from 'axios';
+import Header from './components/Header';
+
 
 
 
 function App() {
-  const [code, setCode] = useState()
+  const [code, setCode] = useState(3)
 
   
   return (
     <div className="App">
       {code ?
-      <Dashboard userId={code}  /> : 
+      <div className='app-body'>
+      <Header />
+      <Dashboard userId={code}  />
+      </div> : 
       <Login setCode={setCode}/>
       }
       

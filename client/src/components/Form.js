@@ -7,6 +7,7 @@ export default function Form(props) {
     const [type, setType] = useState("")
     const [date, setDate] = useState("")
     const [error, setError] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
 
 
 
@@ -39,6 +40,7 @@ export default function Form(props) {
             }
 
             if (data.amount === 0 || data.type === "" || data.date === "") {
+                setErrorMessage("Please fill out all fields")
                 setError(true)
                 return
             }
@@ -47,18 +49,17 @@ export default function Form(props) {
 
 
 
-            const res = axios({
+            axios({
                 method: 'post',
                 type: 'application/json',
                 url: 'http://localhost:8080/transactions',
                 data: data
-            })
-            res.then((res) => {
+            }).then((res) => {
                 props.setTransactions([...props.transactions, res.data])
 
-            })
-            res.catch(() => {
-                console.log("error")
+            }).catch((err) => {
+                setErrorMessage("Please enter a valid date")
+                setError(true)
             })
 
 
@@ -68,14 +69,15 @@ export default function Form(props) {
     window.history.pushState({}, null, '/')
 
   return (
-    <div class="transaction-form">
+    <div className="transaction-form">
+        <h2>Add a transaction</h2>
         <input name="amount" type="number" onChange={handleAmount()} placeholder="Amount" />
         <input name="type" type="text" onChange={handleType()} placeholder="Type" />
         <input name="date" type="text"  onChange={handleDate()} placeholder="Date (mm/dd/yyyy)" />
         <button onClick={handleSubmit()}>Submit</button>
-        <div class="props">{}</div>
+        <div className="props">{}</div>
         {
-            error ? <p>Missing Fields</p> : <></>
+            error ? <p>{errorMessage}</p> : <></>
         }
     </div>
   )
