@@ -14,6 +14,6 @@ func (a *API) Register(c *gin.Context) {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(200, user)
+	c.JSON(200, user.ID)
 
 }

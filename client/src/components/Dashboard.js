@@ -17,6 +17,18 @@ export default function Dashboard(props) {
         {name: 'Goal', amount: 1000}
     ]
 
+    function updateAll(){
+        setTransactions(transactions);
+        setFilteredTransactions(filteredTransactions);
+        setChartData(chartData);
+        setMonthTotal(monthTotal);
+        const data = {
+            transactions: transactions,
+            filteredTransactions: filteredTransactions,
+            chartData: chartData,
+            monthTotal: monthTotal
+        }
+    }
 
     //get all transactions for the user
     useEffect(() => {
@@ -24,7 +36,7 @@ export default function Dashboard(props) {
             (res) => {
                 setTransactions(res.data)
             })
-        }, [])
+        }, [transactions])
 
     //Setup chart data and filtered data
     useEffect(() => {
@@ -47,6 +59,15 @@ export default function Dashboard(props) {
             const bDate = new Date(b.date)
             return aDate - bDate
         });
+        for (let i = 0; i < filteredLineData.length; i++) {
+            if (i !== filteredLineData.length - 1) {
+                if (filteredLineData[i].date === filteredLineData[i + 1].date) {
+                    filteredLineData[i].amount += filteredLineData[i + 1].amount
+                    filteredLineData.splice(i + 1, 1)
+                    i--
+                }
+            }
+        }
         setChartData(filteredLineData)
         const transactionData = transactions.filter((t) => {
             const date = new Date(t.date)
@@ -98,7 +119,7 @@ export default function Dashboard(props) {
             <TransactionList transactions={filteredTransactions} />
             <div className="transaction-sub-1">
                 <MonthyGoal monthTotal={goalData} />
-                <Form userId={props.userId} transactions={filteredTransactions} setTransactions={setFilteredTransactions}  />
+                <Form userId={props.userId} transactions={filteredTransactions} setTransactions={setFilteredTransactions} updateAll={updateAll}  />
             </div>
         </div>
     </div>

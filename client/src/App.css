@@ -61,3 +61,58 @@ h1 {
 .app-body {
   margin-top: 0;
 }
+
+.login-page {
+  background: linear-gradient(141deg, cyan 0%, rebeccapurple 40%, deeppink 90%);
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: ease-in 0.5s;
+  max-width: 300px;
+}
+.login-container input {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  height: 30px;
+  padding: 0 10px;
+  font-size: 16px;
+}
+
+.login-container button {
+  /* make the button clear with filled in text */
+  background-color: #fff;
+  border: 1px solid #0000FF;
+  border-radius: 5px;
+  height: 30px;
+  font-size: 16px;
+  color: #0000FF;
+  cursor: pointer;
+}
+
+.login-container button:hover {
+  background-color: #0000FF;
+  color: #fff;
+  transition: 0.5s;
+}
+
+#error {
+  color: red;
+  font-size: 12px;
+  text-align: center;
+  position: relative;
+  top: 10px;
+}

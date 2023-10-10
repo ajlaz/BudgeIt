@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState } from 'react';
-import Login from './components/Login';
+import LoginPage from './components/LoginPage';
 import Dashboard from './components/Dashboard';
 import Header from './components/Header';
 
@@ -8,7 +8,7 @@ import Header from './components/Header';
 
 
 function App() {
-  const [code, setCode] = useState(3)
+  const [code, setCode] = useState()
 
   
   return (
@@ -18,7 +18,7 @@ function App() {
       <Header />
       <Dashboard userId={code}  />
       </div> : 
-      <Login setCode={setCode}/>
+      <LoginPage setCode={setCode}/>
       }
       
     </div>
