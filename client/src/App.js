@@ -8,7 +8,7 @@ import Header from './components/Header';
 
 
 function App() {
-  const [code, setCode] = useState()
+  const [code, setCode] = useState(3)
 
   
   return (

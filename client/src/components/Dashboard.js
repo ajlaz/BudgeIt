@@ -103,7 +103,9 @@ export default function Dashboard(props) {
   return (
     <div className="transaction-body">
         <div className="transactions-left">
+            <h1 className='welcome'>Welcome!</h1>
             <div className="transaction-chart">
+                
                 <h2>Spending over the last 7 days</h2>
                 <LineChart width={500} height={300} data={chartData}>
                     <CartesianGrid strokeDasharray="3 3"/>

@@ -27,13 +27,21 @@
   align-items:center;
   padding-left:10vw;
   padding-right:10vw;
-  gap: 1px;
+  gap: 0px;
   border : 1px solid #000;
   border-radius: 5px;
 }
 
 .transaction-sub-1 {
-  margin-top: 20vh;
+  margin-top: 10vh;
+}
+
+.transaction-list div {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding-left:10vw;
+  gap: -10px;
 }
 
 .header-top {
@@ -45,7 +53,7 @@
     
 }
 
-h1 {
+.header {
   color: #FFF;
   font-family: sans-serif;
   font-size: 50px;
@@ -115,4 +123,43 @@ h1 {
   text-align: center;
   position: relative;
   top: 10px;
+}
+
+.welcome {
+  color:#000;
+  
+}
+
+
+
+.transaction-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 20vw;
+}
+
+.transaction-form input {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  height: 30px;
+  padding: 0 5px;
+  font-size: 16px;
+}
+
+
+.transaction-form button {
+  /* make the button clear with filled in text */
+  background-color: #fff;
+  border: 1px solid ;
+  border-radius: 5px;
+  height: 30px;
+  font-size: 16px;
+  color: #8784D8;
+  cursor: pointer;
+}
+
+.transaction-form button:hover {
+  background-color: #8784D8;
+  color: #fff;
+  transition: 0.5s;
 }
