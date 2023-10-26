@@ -11,10 +11,11 @@ export default function Dashboard(props) {
     const [filteredTransactions, setFilteredTransactions] = useState([{}])
     const [chartData, setChartData] = useState([{}])
     const [monthTotal, setMonthTotal] = useState(0)
+    const [monthGoal, setMonthGoal] = useState(1000)
 
     const goalData = [
         {name: 'This Month', amount: monthTotal},
-        {name: 'Goal', amount: 1000}
+        {name: 'Goal', amount: monthGoal}
     ]
 
     function updateAll(){
@@ -30,18 +31,21 @@ export default function Dashboard(props) {
         }
     }
 
+    const fetchTransaction = () => {
+            axios.get(`http://localhost:8080/transactions/${props.userId}`).then(
+                (res) => {
+                    setTransactions(res.data)
+                })
+    }
+
     //get all transactions for the user
     useEffect(() => {
-        axios.get(`http://localhost:8080/transactions/${props.userId}`).then(
-            (res) => {
-                setTransactions(res.data)
-            })
-        }, [transactions])
+        fetchTransaction()
+    }, [])
 
     //Setup chart data and filtered data
     useEffect(() => {
         // convert hte transactions into a format that the line chart can read
-
         const lineData = transactions.map((t) => {
             return {
                 date: t.date,
@@ -102,9 +106,10 @@ export default function Dashboard(props) {
 
   return (
     <div className="transaction-body">
-        <div className="transactions-left">
-            <h1 className='welcome'>Welcome!</h1>
+        
+            
             <div className="transaction-chart">
+                <h1 className='welcome'>Welcome!</h1>
                 
                 <h2>Spending over the last 7 days</h2>
                 <LineChart width={500} height={300} data={chartData}>
@@ -116,13 +121,12 @@ export default function Dashboard(props) {
                     <Line type="monotone" dataKey="amount" stroke="#8884d8" activeDot={{r: 8}}/>            
                     </LineChart>
             </div>
-        </div>
-        <div className="transaction-right">
+
             <TransactionList transactions={filteredTransactions} />
             <div className="transaction-sub-1">
                 <MonthyGoal monthTotal={goalData} />
-                <Form userId={props.userId} transactions={filteredTransactions} setTransactions={setFilteredTransactions} updateAll={updateAll}  />
-            </div>
+                <Form userId={props.userId} transactions={filteredTransactions} setTransactions={setFilteredTransactions} updateAll={updateAll} fetchTransaction={fetchTransaction}  />
+
         </div>
     </div>
   )

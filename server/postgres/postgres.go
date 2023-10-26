@@ -22,5 +22,5 @@ func Init(db *sqlx.DB) {
 	if err != nil {
 		panic(err)
 	}
-	gormdb.AutoMigrate(&models.User{}, &models.Transaction{})
+	gormdb.AutoMigrate(&models.User{}, &models.Transaction{}, &models.UserConfig{})
 }

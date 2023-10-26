@@ -56,6 +56,7 @@ export default function Form(props) {
                 data: data
             }).then((res) => {
                 props.setTransactions([...props.transactions, res.data])
+                props.fetchTransaction();
 
             }).catch((err) => {
                 setErrorMessage("Please enter a valid date")

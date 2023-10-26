@@ -6,6 +6,6 @@ func (a *API) RegisterRoutes() {
 	a.GET("/transactions/:userId/:num", a.GetNum)
 	a.POST("/login", a.Login)
 	a.POST("/register", a.Register)
-
+	//a.POST("/config", a.UpdateConfig)
 
 }
